@@ -67,9 +67,17 @@ public class MTAParseStopInfo {
         protected Void doInBackground(Void... params) {
             //do your work here
 
+            String stringLatatude = MainActivity.latatude + "";
+            stringLatatude = stringLatatude.substring(0,8);
+            String stringlongitude = MainActivity.longitude + "";
+            stringlongitude = stringlongitude.substring(0,8);
 
             String downloadURL = "http://bustime.mta.info/api/where/stops-for-location.xml?key=" + MainActivity.API_KEY + "&radius=125&lat=" +
-                    MainActivity.testLat.substring(0,9) + "&lon=" + MainActivity.testLng.substring(0,9);
+                    stringLatatude + "&lon=" + stringlongitude;
+
+            /*String downloadURL = "http://bustime.mta.info/api/where/stops-for-location.xml?key=" + MainActivity.API_KEY + "&radius=125&lat=" +
+                    MainActivity.testLat + "&lon=" + MainActivity.testLng;*/
+
             try {
                 URL url = new URL(downloadURL);
                 HttpURLConnection connection = (HttpURLConnection) url.openConnection();
