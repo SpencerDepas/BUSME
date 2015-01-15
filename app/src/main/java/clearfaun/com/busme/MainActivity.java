@@ -36,10 +36,12 @@ public class MainActivity extends ActionBarActivity {
     static EditText editTextTwo;
     static EditText editTextThree;
 
-    String testLat = "40.645552099999996";
-    String testLng = "-73.9829084";
-    static double x;
-    static double y;
+    final static public String API_KEY = "05a5c2c8-432a-47bd-8f50-ece9382b4b28";
+
+    static String testLat = "40.6455520";
+    static String testLng = "-73.9829084";
+    static double latatude;
+    static double longitude;
     static List<Address> addresses;
 
 
@@ -77,7 +79,7 @@ public class MainActivity extends ActionBarActivity {
             try
             {
                 bob++;
-                addresses = geocoder.getFromLocation(x, y, 1);
+                addresses = geocoder.getFromLocation(latatude, longitude, 1);
                 StringBuilder str = new StringBuilder();
 
 
@@ -122,8 +124,8 @@ public class MainActivity extends ActionBarActivity {
         double lat =  location.getLatitude();
         double lng =  location.getLongitude();
         editText.setText(String.valueOf(lat) + "\n" + String.valueOf(lng));
-        x = lat;
-        y = lng;
+        latatude = lat;
+        longitude = lng;
 
     }
 
