@@ -89,7 +89,8 @@ public class MTAParseDistance {
             //editText.setText(rootElement.getTagName());
             //editText.setText(currentItem.getNodeName() + ": " + currentChild.getTextContent());
 
-            MainActivity.editTextThree.setText(MTAParseStopInfo.busInfo.getDistance() + "");
+            MainActivity.editTextThree.setText(MTAParseStopInfo.busInfo.getDistance());
+
 
             //ToastMe(rootElement.toString());
             // do something with data here-display it or send to mainactivity
@@ -123,7 +124,7 @@ public class MTAParseDistance {
                 for(int j = 0; j < itemChildren.getLength(); j++){
                     currentChild = itemChildren.item(j);
                     if(currentChild.getNodeName().equalsIgnoreCase("presentableDistance")){
-                        MTAParseStopInfo.busInfo.busDistance(Integer.parseInt(currentChild.getTextContent()));
+                        MTAParseStopInfo.busInfo.busDistance(currentChild.getTextContent());
                     }
 
                 }

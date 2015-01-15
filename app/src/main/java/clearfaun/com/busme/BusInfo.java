@@ -8,7 +8,7 @@ public class BusInfo {
 
     public int stopCode = 0;
     public String busName = "";
-    public float distance = 0;
+    public String distance = "";
     //constructor
 
 
@@ -20,7 +20,7 @@ public class BusInfo {
         busName = nameOfBus;
     }
 
-    public void busDistance(float busDistance) {
+    public void busDistance(String busDistance) {
         distance = busDistance;
     }
 
@@ -36,7 +36,7 @@ public class BusInfo {
         return busName;
     }
 
-    public float getDistance() {
+    public String getDistance() {
         return distance;
     }
 

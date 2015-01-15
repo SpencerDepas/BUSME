@@ -95,6 +95,8 @@ public class MTAParseStopInfo {
 
             MainActivity.editTextTwo.setText(busInfo.getBusName() + ": " + busInfo.getBusCode());
 
+            MTAParseDistance.PlaceholderFragment.startTask();
+
             //ToastMe(rootElement.toString());
             // do something with data here-display it or send to mainactivity
         }
