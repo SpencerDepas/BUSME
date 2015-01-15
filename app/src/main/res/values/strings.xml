@@ -4,6 +4,7 @@
     <string name="app_name">BUSME</string>
     <string name="hello_world">Hello world! lat long</string>
     <string name="stop">Hello world! BUS stop info</string>
+    <string name="distance">Distance</string>
     <string name="action_settings">Settings</string>
     <string name="button_text">PRESS BIATCH</string>
 

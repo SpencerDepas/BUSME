@@ -10,7 +10,6 @@ import android.location.LocationManager;
 import android.os.AsyncTask;
 import android.provider.Settings;
 import android.support.v7.app.ActionBarActivity;
-import android.support.v7.app.ActionBar;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -18,7 +17,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.os.Build;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -35,12 +33,15 @@ public class MainActivity extends ActionBarActivity {
     private static LocationManager locationManager;
     private static String provider;
     static EditText editText;
+    static EditText editTextTwo;
+    static EditText editTextThree;
+
     String testLat = "40.645552099999996";
     String testLng = "-73.9829084";
     static double x;
     static double y;
     static List<Address> addresses;
-    static EditText editTextTwo;
+
 
 
     @Override
@@ -112,7 +113,7 @@ public class MainActivity extends ActionBarActivity {
 
             toaster(address + "");
             //editText.setText(address);
-            MTAParseFragment.PlaceholderFragment.startTask();
+            MTAParseStopInfo.PlaceholderFragment.startTask();
         }
 
     }
@@ -172,6 +173,7 @@ public class MainActivity extends ActionBarActivity {
             Button button = (Button) rootView.findViewById(R.id.button);
             editText = (EditText) rootView.findViewById(R.id.editText);
             editTextTwo = (EditText) rootView.findViewById(R.id.editTextTwo);
+            editTextThree = (EditText) rootView.findViewById(R.id.editTextThree);
 
 
 

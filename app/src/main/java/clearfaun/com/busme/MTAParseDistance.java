@@ -1,13 +1,11 @@
 package clearfaun.com.busme;
 
-import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -24,29 +22,16 @@ import javax.xml.parsers.DocumentBuilderFactory;
 /**
  * Created by spencer on 1/15/2015.
  */
-public class MTAParseFragment {
+public class MTAParseDistance {
 
-    static EditText editTextTwo;
-    //static Context mContext;
 
-    public static class PlaceholderFragment extends Fragment {
+    public static class PlaceholderFragment  {
 
         static TechCrunchTask downloadTask;
         public PlaceholderFragment() {
         }
 
-        @Override
-        public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                                 Bundle savedInstanceState) {
 
-
-
-            //mContext = container.getContext();
-
-
-
-            return null;
-        }
 
         public static void startTask(){
 
@@ -79,7 +64,7 @@ public class MTAParseFragment {
             //do your work here
 
 
-            String downloadURL = "http://bustime.mta.info/api/where/stops-for-location.xml?key=05a5c2c8-432a-47bd-8f50-ece9382b4b28&radius=120&lat=40.64555209&lon=-73.9829084";
+            String downloadURL = "http://bustime.mta.info/api/siri/stop-monitoring.xml?key=05a5c2c8-432a-47bd-8f50-ece9382b4b28&MonitoringRef=MTA_301648&MaximumStopVisits=1";
             try {
                 URL url = new URL(downloadURL);
                 HttpURLConnection connection = (HttpURLConnection) url.openConnection();
@@ -104,7 +89,7 @@ public class MTAParseFragment {
             //editText.setText(rootElement.getTagName());
             //editText.setText(currentItem.getNodeName() + ": " + currentChild.getTextContent());
 
-            MainActivity.editTextTwo.setText(busInfo.getBusName() + ": " + busInfo.getBusCode());
+            MainActivity.editTextThree.setText(MTAParseStopInfo.busInfo.getDistance() + "");
 
             //ToastMe(rootElement.toString());
             // do something with data here-display it or send to mainactivity
@@ -113,7 +98,6 @@ public class MTAParseFragment {
         Node currentItem;
         NodeList itemChildren;
         Node currentChild;
-        BusInfo busInfo;
 
 
         public void processXML(InputStream inputStream) throws Exception{
@@ -123,10 +107,11 @@ public class MTAParseFragment {
             Document xmlDocument = documentBuilder.parse(inputStream);
             rootElement = xmlDocument.getDocumentElement();
 
-            busInfo = new BusInfo();
 
 
-            NodeList itemsList = rootElement.getElementsByTagName("stop");
+
+
+            NodeList itemsList = rootElement.getElementsByTagName("Distances");
             currentItem = null;
             itemChildren = null;
             currentChild = null;
@@ -137,32 +122,22 @@ public class MTAParseFragment {
 
                 for(int j = 0; j < itemChildren.getLength(); j++){
                     currentChild = itemChildren.item(j);
-                    if(currentChild.getNodeName().equalsIgnoreCase("code")){
-                        busInfo.busCode(Integer.parseInt(currentChild.getTextContent()));
+                    if(currentChild.getNodeName().equalsIgnoreCase("presentableDistance")){
+                        MTAParseStopInfo.busInfo.busDistance(Integer.parseInt(currentChild.getTextContent()));
                     }
 
                 }
             }
 
-
-            itemsList = rootElement.getElementsByTagName("route");
-            for(int i = 0; i < itemsList.getLength(); i++){
-                currentItem = itemsList.item(i);
-                itemChildren = currentItem.getChildNodes();
-
-                for(int j = 0; j < itemChildren.getLength(); j++){
-                    currentChild = itemChildren.item(j);
-                    if(currentChild.getNodeName().equalsIgnoreCase("shortname")){
-                        busInfo.busName(currentChild.getTextContent());
-                    }
-                }
-            }
 
         }
 
 
 
     }
+
+
+
 
 
 

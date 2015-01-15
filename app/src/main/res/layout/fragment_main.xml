@@ -17,13 +17,18 @@
         android:layout_below="@+id/editText"
         android:id="@+id/editTextTwo" />
 
+    <EditText android:text="@string/distance" android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/editTextTwo"
+        android:id="@+id/editTextThree" />
+
     <Button
         style="?android:attr/buttonStyleSmall"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/button_text"
         android:id="@+id/button"
-        android:layout_below="@+id/editTextTwo"
+        android:layout_below="@+id/editTextThree"
         android:layout_centerHorizontal="true" />
 
 </RelativeLayout>
