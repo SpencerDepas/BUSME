@@ -68,11 +68,14 @@ public class MTAParseStopInfo {
             //do your work here
 
             String stringLatatude = MainActivity.latatude + "";
-            stringLatatude = stringLatatude.substring(0,8);
             String stringlongitude = MainActivity.longitude + "";
-            stringlongitude = stringlongitude.substring(0,8);
+            String stringradius = Integer.toString(MainActivity.radiusForBusStop);
 
-            String downloadURL = "http://bustime.mta.info/api/where/stops-for-location.xml?key=" + MainActivity.API_KEY + "&radius=125&lat=" +
+
+            stringLatatude = stringLatatude.substring(0,9);
+            stringlongitude = stringlongitude.substring(0,9);
+
+            String downloadURL = "http://bustime.mta.info/api/where/stops-for-location.xml?key=" + MainActivity.API_KEY + "&radius=" + stringradius + "&lat=" +
                     stringLatatude + "&lon=" + stringlongitude;
 
             /*String downloadURL = "http://bustime.mta.info/api/where/stops-for-location.xml?key=" + MainActivity.API_KEY + "&radius=125&lat=" +

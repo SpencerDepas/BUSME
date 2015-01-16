@@ -38,10 +38,13 @@ public class MainActivity extends ActionBarActivity {
 
     final static public String API_KEY = "05a5c2c8-432a-47bd-8f50-ece9382b4b28";
 
+
     static String testLat = "40.6455520";
     static String testLng = "-73.9829084";
+
     static double latatude;
     static double longitude;
+    static int radiusForBusStop = 125;
     static List<Address> addresses;
 
 
@@ -115,17 +118,19 @@ public class MainActivity extends ActionBarActivity {
 
             toaster(address + "");
             //editText.setText(address);
-            MTAParseStopInfo.PlaceholderFragment.startTask();
+            if(String.valueOf(longitude).length() > 8){
+                MTAParseStopInfo.PlaceholderFragment.startTask();
+            }
+
         }
 
     }
 
     public static void onLocationChanged(Location location) {
-        double lat =  location.getLatitude();
-        double lng =  location.getLongitude();
-        editText.setText(String.valueOf(lat) + "\n" + String.valueOf(lng));
-        latatude = lat;
-        longitude = lng;
+        latatude =  location.getLatitude();
+        longitude =  location.getLongitude();
+        editText.setText(String.valueOf(latatude) + "\n" + String.valueOf(longitude));
+
 
     }
 
