@@ -145,20 +145,7 @@ public class MainActivity extends ActionBarActivity {
         return true;
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
 
     static Context mContext;
     /**
@@ -197,11 +184,14 @@ public class MainActivity extends ActionBarActivity {
 
                     // check if enabled and if not send user to the GSP settings
                     // Better solution would be to display a dialog and suggesting to
-                    // go to the settings
+
+
+
+                 /*   // go to the settings
                     if (!enabled) {
                         Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
                         startActivity(intent);
-                    }
+                    }*/
 
 
 
