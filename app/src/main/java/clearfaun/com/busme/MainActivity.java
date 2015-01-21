@@ -114,6 +114,8 @@ public class MainActivity extends ActionBarActivity {
             return bob + "";
         }
 
+
+
         @Override
         protected void onPostExecute(String address) {
 
@@ -127,18 +129,20 @@ public class MainActivity extends ActionBarActivity {
 
 
                 MTAParseStopInfo.TechCrunchTask downloadTaskOne = new MTAParseStopInfo.TechCrunchTask();
-                downloadTaskOne.stopRadius = 20;
+                downloadTaskOne.stopRadius = 100;
                 downloadTaskOne.execute();
 
                 MTAParseStopInfo.TechCrunchTask downloadTaskTwo = new MTAParseStopInfo.TechCrunchTask();
-                downloadTaskTwo.stopRadius = 40;
+                downloadTaskTwo.stopRadius = 120;
                 downloadTaskTwo.execute();
 
                 MTAParseStopInfo.TechCrunchTask downloadTaskThree = new MTAParseStopInfo.TechCrunchTask();
                 downloadTaskThree.stopRadius = 150;
                 downloadTaskThree.execute();
 
-                //MTAParseStopInfo.PlaceholderFragment.startTask(150);
+
+                MTAParseDistance.PlaceholderFragment.startTask();
+                //test comment
 
             }
 

@@ -135,7 +135,7 @@ public class MTAParseStopInfo {
                 busInfo.busName(tempBusName);
                 busInfo.busRadiusTaskNumber(stopRadius);
 
-                MainActivity.editTextTwo.setText(busInfo.getBusName() + ": " + busInfo.getBusCode());
+                MainActivity.editTextTwo.setText(busInfo.getBusName() + ": " + busInfo.getBusCode() + " I am radius " + stopRadius);
             }
 
 
@@ -151,7 +151,7 @@ public class MTAParseStopInfo {
 
 
 
-            MTAParseDistance.PlaceholderFragment.startTask();
+
 
 
 
