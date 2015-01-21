@@ -26,18 +26,27 @@ import javax.xml.parsers.DocumentBuilderFactory;
  */
 public class MTAParseStopInfo {
 
-    public static BusInfo busInfo;
+    public static BusInfo busInfo = new BusInfo();
     static EditText editTextTwo;
+
     //static Context mContext;
 
-    public static class PlaceholderFragment{
+    /*public static class PlaceholderFragment{
 
-        static TechCrunchTask downloadTask;
+        TechCrunchTask downloadTask;
+
         public PlaceholderFragment() {
         }
 
 
-        public static void startTask(){
+        public void startTask(int radius){
+
+            stopRadius = radius;
+
+            if( busInfo.getBusRadiusTaskNumber() == 0) {
+
+                busInfo.busRadiusTaskNumber(radius);
+            }
 
             if(downloadTask != null){
                 downloadTask.cancel(true);
@@ -47,14 +56,21 @@ public class MTAParseStopInfo {
             }
         }
 
-    }
+    }*/
+
 
     public static class TechCrunchTask extends AsyncTask<Void, Void, Void> {
+
+        int stopRadius;
 
 
         @Override
         protected void onPreExecute() {
+
+
+
             super.onPreExecute();
+
         }
 
         @Override
@@ -69,13 +85,13 @@ public class MTAParseStopInfo {
 
             String stringLatatude = MainActivity.latatude + "";
             String stringlongitude = MainActivity.longitude + "";
-            String stringradius = Integer.toString(MainActivity.radiusForBusStop);
+
 
 
             stringLatatude = stringLatatude.substring(0,9);
             stringlongitude = stringlongitude.substring(0,9);
 
-            String downloadURL = "http://bustime.mta.info/api/where/stops-for-location.xml?key=" + MainActivity.API_KEY + "&radius=" + stringradius + "&lat=" +
+            String downloadURL = "http://bustime.mta.info/api/where/stops-for-location.xml?key=" + MainActivity.API_KEY + "&radius=" + stopRadius + "&lat=" +
                     stringLatatude + "&lon=" + stringlongitude;
 
             /*String downloadURL = "http://bustime.mta.info/api/where/stops-for-location.xml?key=" + MainActivity.API_KEY + "&radius=125&lat=" +
@@ -105,9 +121,39 @@ public class MTAParseStopInfo {
             //editText.setText(rootElement.getTagName());
             //editText.setText(currentItem.getNodeName() + ": " + currentChild.getTextContent());
 
-            MainActivity.editTextTwo.setText(busInfo.getBusName() + ": " + busInfo.getBusCode());
+            if( busInfo.getBusRadiusTaskNumber() == 0 && tempBusCode != 0) {
+
+                busInfo.busRadiusTaskNumber(stopRadius);
+            }
+
+
+            if(tempBusCode != 0 && stopRadius <= busInfo.getBusRadiusTaskNumber()) {
+
+                //stopRadius <= busInfo.getBusRadiusTaskNumber() &&
+
+                busInfo.busCode(tempBusCode);
+                busInfo.busName(tempBusName);
+                busInfo.busRadiusTaskNumber(stopRadius);
+
+                MainActivity.editTextTwo.setText(busInfo.getBusName() + ": " + busInfo.getBusCode());
+            }
+
+
+
+
+
+
+            //we want valid and the lowest radius
+
+
+
+
+
+
 
             MTAParseDistance.PlaceholderFragment.startTask();
+
+
 
             //ToastMe(rootElement.toString());
             // do something with data here-display it or send to mainactivity
@@ -116,6 +162,8 @@ public class MTAParseStopInfo {
         Node currentItem;
         NodeList itemChildren;
         Node currentChild;
+        int tempBusCode;
+        String tempBusName;
 
 
 
@@ -126,13 +174,14 @@ public class MTAParseStopInfo {
             Document xmlDocument = documentBuilder.parse(inputStream);
             rootElement = xmlDocument.getDocumentElement();
 
-            busInfo = new BusInfo();
+
 
 
             NodeList itemsList = rootElement.getElementsByTagName("stop");
             currentItem = null;
             itemChildren = null;
             currentChild = null;
+
             for(int i = 0; i < itemsList.getLength(); i++){
 
                 currentItem = itemsList.item(i);
@@ -141,7 +190,8 @@ public class MTAParseStopInfo {
                 for(int j = 0; j < itemChildren.getLength(); j++){
                     currentChild = itemChildren.item(j);
                     if(currentChild.getNodeName().equalsIgnoreCase("code")){
-                        busInfo.busCode(Integer.parseInt(currentChild.getTextContent()));
+                        tempBusCode = Integer.parseInt(currentChild.getTextContent());
+                        //busInfo.busCode(Integer.parseInt(currentChild.getTextContent()));
                     }
 
                 }
@@ -156,10 +206,14 @@ public class MTAParseStopInfo {
                 for(int j = 0; j < itemChildren.getLength(); j++){
                     currentChild = itemChildren.item(j);
                     if(currentChild.getNodeName().equalsIgnoreCase("shortname")){
-                        busInfo.busName(currentChild.getTextContent());
+                        tempBusName = currentChild.getTextContent();
+
+                        //busInfo.busName(currentChild.getTextContent());
                     }
                 }
             }
+
+
 
         }
 

@@ -9,6 +9,7 @@ public class BusInfo {
     public int stopCode = 0;
     public String busName = "";
     public String distance = "";
+    public int radiusTaskNumber = 0;
     //constructor
 
 
@@ -24,12 +25,20 @@ public class BusInfo {
         distance = busDistance;
     }
 
+    public void busRadiusTaskNumber(int TaskNumber) {
+        radiusTaskNumber = TaskNumber;
+    }
+
 
 
 
 
     public int getBusCode(){
         return stopCode;
+    }
+
+    public int getBusRadiusTaskNumber(){
+        return radiusTaskNumber;
     }
 
     public String getBusName(){

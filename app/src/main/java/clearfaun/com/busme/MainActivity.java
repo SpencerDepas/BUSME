@@ -42,6 +42,7 @@ public class MainActivity extends ActionBarActivity {
     static String testLat = "40.6455520";
     static String testLng = "-73.9829084";
 
+
     static double latatude;
     static double longitude;
     static int radiusForBusStop = 125;
@@ -119,7 +120,26 @@ public class MainActivity extends ActionBarActivity {
             toaster(address + "");
             //editText.setText(address);
             if(String.valueOf(longitude).length() > 8){
-                MTAParseStopInfo.PlaceholderFragment.startTask();
+
+                //MTAParseStopInfo.PlaceholderFragment.startTask(20);
+                //MTAParseStopInfo.PlaceholderFragment.startTask(40);
+                //MyTask myTask = new MyTask(this);
+
+
+                MTAParseStopInfo.TechCrunchTask downloadTaskOne = new MTAParseStopInfo.TechCrunchTask();
+                downloadTaskOne.stopRadius = 20;
+                downloadTaskOne.execute();
+
+                MTAParseStopInfo.TechCrunchTask downloadTaskTwo = new MTAParseStopInfo.TechCrunchTask();
+                downloadTaskTwo.stopRadius = 40;
+                downloadTaskTwo.execute();
+
+                MTAParseStopInfo.TechCrunchTask downloadTaskThree = new MTAParseStopInfo.TechCrunchTask();
+                downloadTaskThree.stopRadius = 150;
+                downloadTaskThree.execute();
+
+                //MTAParseStopInfo.PlaceholderFragment.startTask(150);
+
             }
 
         }
