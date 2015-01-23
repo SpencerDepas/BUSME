@@ -84,14 +84,14 @@ public class MTAParseStopInfo {
         }
 
         Element rootElement;
-        boolean returnedStop;
+        boolean returnedStop = false;
 
 
         @Override
         protected void onPostExecute(Void result) {
             super.onPostExecute(result);
 
-            returnedStop = false;
+
 
             //editText.setText(rootElement.getTagName());
             //editText.setText(currentItem.getNodeName() + ": " + currentChild.getTextContent());
@@ -101,9 +101,6 @@ public class MTAParseStopInfo {
                 busInfo.busRadiusTaskNumber(stopRadius);
             }
 
-            if(tempBusCode != 0){
-                returnedStop = true;
-            }
 
 
             if(tempBusCode != 0 && stopRadius <= busInfo.getBusRadiusTaskNumber()) {
@@ -113,8 +110,10 @@ public class MTAParseStopInfo {
                 busInfo.busName(tempBusName);
                 busInfo.busRadiusTaskNumber(stopRadius);
 
+                MainActivity.editTextTwo.setText(busInfo.getBusName() + ": " + busInfo.getBusCode() + " I am radius " + stopRadius);
 
             }
+
 
 
             //ToastMe(rootElement.toString());

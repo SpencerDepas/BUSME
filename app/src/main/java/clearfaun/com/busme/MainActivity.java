@@ -146,20 +146,10 @@ public class MainActivity extends ActionBarActivity {
                 downloadTaskFour.execute();
 
                 int stopRadius = 0;
-
-                if(downloadTaskOne.returnedStop){
-                    stopRadius = 10;
-                }else if(downloadTaskTwo.returnedStop){
-                    stopRadius = 25;
-                }else if(downloadTaskThree.returnedStop){
-                    stopRadius = 50;
-                }else if(downloadTaskFour.returnedStop){
-                    stopRadius = 120;
-                }
+                String busName = "poo";
 
 
-                BusInfo busInfo = new BusInfo();
-                MainActivity.editTextTwo.setText(busInfo.getBusName() + ": " + busInfo.getBusCode() + " I am radius " + stopRadius);
+
 
 
                 MTAParseDistance.PlaceholderFragment.startTask();
