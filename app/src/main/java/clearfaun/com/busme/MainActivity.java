@@ -145,12 +145,6 @@ public class MainActivity extends ActionBarActivity {
                 downloadTaskFour.stopRadius = 120;
                 downloadTaskFour.execute();
 
-                int stopRadius = 0;
-                String busName = "poo";
-
-
-
-
 
                 MTAParseDistance.PlaceholderFragment.startTask();
                 //test comment

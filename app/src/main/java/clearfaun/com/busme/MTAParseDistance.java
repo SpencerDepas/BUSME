@@ -63,8 +63,10 @@ public class MTAParseDistance {
         protected Void doInBackground(Void... params) {
             //do your work here
 
+            String stopCode = MTAParseStopInfo.busInfo.getBusCode() + "";
 
-            String downloadURL = "http://bustime.mta.info/api/siri/stop-monitoring.xml?key=05a5c2c8-432a-47bd-8f50-ece9382b4b28&MonitoringRef=MTA_301648&MaximumStopVisits=1";
+
+            String downloadURL = "http://bustime.mta.info/api/siri/stop-monitoring.xml?key=05a5c2c8-432a-47bd-8f50-ece9382b4b28&MonitoringRef=MTA_" + stopCode + "&MaximumStopVisits=1";
             try {
                 URL url = new URL(downloadURL);
                 HttpURLConnection connection = (HttpURLConnection) url.openConnection();
