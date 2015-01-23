@@ -6,6 +6,7 @@ import android.location.Address;
 import android.location.Criteria;
 import android.location.Geocoder;
 import android.location.Location;
+import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.AsyncTask;
 import android.provider.Settings;
@@ -129,16 +130,36 @@ public class MainActivity extends ActionBarActivity {
 
 
                 MTAParseStopInfo.TechCrunchTask downloadTaskOne = new MTAParseStopInfo.TechCrunchTask();
-                downloadTaskOne.stopRadius = 100;
+                downloadTaskOne.stopRadius = 10;
                 downloadTaskOne.execute();
 
                 MTAParseStopInfo.TechCrunchTask downloadTaskTwo = new MTAParseStopInfo.TechCrunchTask();
-                downloadTaskTwo.stopRadius = 120;
+                downloadTaskTwo.stopRadius = 25;
                 downloadTaskTwo.execute();
 
                 MTAParseStopInfo.TechCrunchTask downloadTaskThree = new MTAParseStopInfo.TechCrunchTask();
-                downloadTaskThree.stopRadius = 150;
+                downloadTaskThree.stopRadius = 50;
                 downloadTaskThree.execute();
+
+                MTAParseStopInfo.TechCrunchTask downloadTaskFour = new MTAParseStopInfo.TechCrunchTask();
+                downloadTaskFour.stopRadius = 120;
+                downloadTaskFour.execute();
+
+                int stopRadius = 0;
+
+                if(downloadTaskOne.returnedStop){
+                    stopRadius = 10;
+                }else if(downloadTaskTwo.returnedStop){
+                    stopRadius = 25;
+                }else if(downloadTaskThree.returnedStop){
+                    stopRadius = 50;
+                }else if(downloadTaskFour.returnedStop){
+                    stopRadius = 120;
+                }
+
+
+                BusInfo busInfo = new BusInfo();
+                MainActivity.editTextTwo.setText(busInfo.getBusName() + ": " + busInfo.getBusCode() + " I am radius " + stopRadius);
 
 
                 MTAParseDistance.PlaceholderFragment.startTask();
@@ -227,6 +248,13 @@ public class MainActivity extends ActionBarActivity {
                     criteria.setAccuracy(Criteria.ACCURACY_FINE);
                     provider = locationManager.getBestProvider(criteria, true);
                     Location location = locationManager.getLastKnownLocation(provider);
+
+                  /*  LocationListener locationListener = new MyLocationListener();
+
+
+                    Location location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+                    locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, locationListener);*/
+
 
                     // Initialize the location fields
                     if (location != null) {

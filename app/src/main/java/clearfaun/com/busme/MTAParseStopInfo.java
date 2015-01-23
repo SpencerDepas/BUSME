@@ -27,36 +27,7 @@ import javax.xml.parsers.DocumentBuilderFactory;
 public class MTAParseStopInfo {
 
     public static BusInfo busInfo = new BusInfo();
-    static EditText editTextTwo;
 
-    //static Context mContext;
-
-    /*public static class PlaceholderFragment{
-
-        TechCrunchTask downloadTask;
-
-        public PlaceholderFragment() {
-        }
-
-
-        public void startTask(int radius){
-
-            stopRadius = radius;
-
-            if( busInfo.getBusRadiusTaskNumber() == 0) {
-
-                busInfo.busRadiusTaskNumber(radius);
-            }
-
-            if(downloadTask != null){
-                downloadTask.cancel(true);
-            }else{
-                downloadTask = new TechCrunchTask();
-                downloadTask.execute();
-            }
-        }
-
-    }*/
 
 
     public static class TechCrunchTask extends AsyncTask<Void, Void, Void> {
@@ -113,10 +84,14 @@ public class MTAParseStopInfo {
         }
 
         Element rootElement;
+        boolean returnedStop;
+
 
         @Override
         protected void onPostExecute(Void result) {
             super.onPostExecute(result);
+
+            returnedStop = false;
 
             //editText.setText(rootElement.getTagName());
             //editText.setText(currentItem.getNodeName() + ": " + currentChild.getTextContent());
@@ -126,33 +101,20 @@ public class MTAParseStopInfo {
                 busInfo.busRadiusTaskNumber(stopRadius);
             }
 
+            if(tempBusCode != 0){
+                returnedStop = true;
+            }
+
 
             if(tempBusCode != 0 && stopRadius <= busInfo.getBusRadiusTaskNumber()) {
 
-                //stopRadius <= busInfo.getBusRadiusTaskNumber() &&
 
                 busInfo.busCode(tempBusCode);
                 busInfo.busName(tempBusName);
                 busInfo.busRadiusTaskNumber(stopRadius);
 
-                MainActivity.editTextTwo.setText(busInfo.getBusName() + ": " + busInfo.getBusCode() + " I am radius " + stopRadius);
+
             }
-
-
-
-
-
-
-            //we want valid and the lowest radius
-
-
-
-
-
-
-
-
-
 
 
             //ToastMe(rootElement.toString());
@@ -168,13 +130,12 @@ public class MTAParseStopInfo {
 
 
         public void processXML(InputStream inputStream) throws Exception{
+
             DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
 
             Document xmlDocument = documentBuilder.parse(inputStream);
             rootElement = xmlDocument.getDocumentElement();
-
-
 
 
             NodeList itemsList = rootElement.getElementsByTagName("stop");
