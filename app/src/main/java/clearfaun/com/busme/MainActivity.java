@@ -231,13 +231,14 @@ public class MainActivity extends ActionBarActivity {
                     Criteria criteria = new Criteria();
                     criteria.setAccuracy(Criteria.ACCURACY_FINE);
                     provider = locationManager.getBestProvider(criteria, true);
-                    Location location = locationManager.getLastKnownLocation(provider);
 
-                  /*  LocationListener locationListener = new MyLocationListener();
+                   
+
+                    LocationListener locationListener = new MyLocationListener();
 
 
                     Location location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-                    locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, locationListener);*/
+                    locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, locationListener);
 
 
                     // Initialize the location fields
