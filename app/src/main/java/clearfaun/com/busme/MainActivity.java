@@ -146,7 +146,8 @@ public class MainActivity extends ActionBarActivity {
                 downloadTaskFour.execute();
 
 
-                MTAParseDistance.PlaceholderFragment.startTask();
+                //this is now in stop info as it does not update on second press here
+                //MTAParseDistance.PlaceholderFragment.startTask();
                 //test comment
 
             }
@@ -232,11 +233,9 @@ public class MainActivity extends ActionBarActivity {
                     criteria.setAccuracy(Criteria.ACCURACY_FINE);
                     provider = locationManager.getBestProvider(criteria, true);
 
-                   
+
 
                     LocationListener locationListener = new MyLocationListener();
-
-
                     Location location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
                     locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, locationListener);
 
