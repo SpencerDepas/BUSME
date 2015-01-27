@@ -24,9 +24,10 @@ import javax.xml.parsers.DocumentBuilderFactory;
 /**
  * Created by spencer on 1/15/2015.
  */
+
 public class MTAParseStopInfo {
 
-    public static BusInfo busInfo = new BusInfo();
+
 
 
 
@@ -96,22 +97,23 @@ public class MTAParseStopInfo {
             //editText.setText(rootElement.getTagName());
             //editText.setText(currentItem.getNodeName() + ": " + currentChild.getTextContent());
 
-            if( busInfo.getBusRadiusTaskNumber() == 0 && tempBusCode != 0) {
+            if( MainActivity.busInfo.getBusRadiusTaskNumber() == 0 && tempBusCode != 0) {
 
-                busInfo.busRadiusTaskNumber(stopRadius);
+                MainActivity.busInfo.busRadiusTaskNumber(stopRadius);
             }
 
 
 
-            if(tempBusCode != 0 && stopRadius <= busInfo.getBusRadiusTaskNumber()) {
+            if(tempBusCode != 0 && stopRadius <= MainActivity.busInfo.getBusRadiusTaskNumber()) {
 
 
-                busInfo.busCode(tempBusCode);
-                busInfo.busName(tempBusName);
-                busInfo.busRadiusTaskNumber(stopRadius);
+                MainActivity.busInfo.busCode(tempBusCode);
+                MainActivity.busInfo.busName(tempBusName);
+                MainActivity.busInfo.busRadiusTaskNumber(stopRadius);
 
-                MainActivity.editTextTwo.setText(busInfo.getBusName() + ": " + busInfo.getBusCode() + " I am radius " + stopRadius);
+                //MainActivity.editTextTwo.setText(MainActivity.busInfo.getBusName() + ": " + MainActivity.busInfo.getBusCode() + " I am radius " + stopRadius);
 
+                MainActivity.editTextTwo.setText(MainActivity.busInfo.getBusName() + ": " + MainActivity.busInfo.getBusCode() + " I am radius " + MainActivity.busInfo.getBusRadiusTaskNumber());
 
                 MTAParseDistance.PlaceholderFragment.startTask();
 

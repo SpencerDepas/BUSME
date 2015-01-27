@@ -63,13 +63,14 @@ public class MTAParseDistance {
         protected Void doInBackground(Void... params) {
             //do your work here
 
-            String stopCode = MTAParseStopInfo.busInfo.getBusCode() + "";
+            String stopCode = MainActivity.busInfo.getBusCode() + "";
 
 
             String downloadURL = "http://bustime.mta.info/api/siri/stop-monitoring.xml?key=05a5c2c8-432a-47bd-8f50-ece9382b4b28&MonitoringRef=MTA_" + stopCode + "&MaximumStopVisits=1";
             try {
                 URL url = new URL(downloadURL);
                 HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+
                 connection.setRequestMethod("GET");
                 InputStream inputStream = connection.getInputStream();
                 processXML(inputStream);
@@ -91,7 +92,7 @@ public class MTAParseDistance {
             //editText.setText(rootElement.getTagName());
             //editText.setText(currentItem.getNodeName() + ": " + currentChild.getTextContent());
 
-            MainActivity.editTextThree.setText(MTAParseStopInfo.busInfo.getDistance());
+            MainActivity.editTextThree.setText(MainActivity.busInfo.getDistance());
 
 
             //ToastMe(rootElement.toString());
@@ -126,7 +127,7 @@ public class MTAParseDistance {
                 for(int j = 0; j < itemChildren.getLength(); j++){
                     currentChild = itemChildren.item(j);
                     if(currentChild.getNodeName().equalsIgnoreCase("presentableDistance")){
-                        MTAParseStopInfo.busInfo.busDistance(currentChild.getTextContent());
+                        MainActivity.busInfo.busDistance(currentChild.getTextContent());
                     }
 
                 }

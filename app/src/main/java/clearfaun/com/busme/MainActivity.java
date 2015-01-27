@@ -46,7 +46,6 @@ public class MainActivity extends ActionBarActivity {
 
     static double latatude;
     static double longitude;
-    static int radiusForBusStop = 125;
     static List<Address> addresses;
 
 
@@ -54,6 +53,8 @@ public class MainActivity extends ActionBarActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+
         setContentView(R.layout.activity_main);
 
         if (savedInstanceState == null) {
@@ -65,7 +66,7 @@ public class MainActivity extends ActionBarActivity {
 
     }
 
-
+    public static BusInfo busInfo = new BusInfo();
     static Geocoder geocoder;
 
     private static class GpsToAddress extends AsyncTask<Location, Void, String> {
@@ -124,9 +125,6 @@ public class MainActivity extends ActionBarActivity {
             //editText.setText(address);
             if(String.valueOf(longitude).length() > 8){
 
-                //MTAParseStopInfo.PlaceholderFragment.startTask(20);
-                //MTAParseStopInfo.PlaceholderFragment.startTask(40);
-                //MyTask myTask = new MyTask(this);
 
 
                 MTAParseStopInfo.TechCrunchTask downloadTaskOne = new MTAParseStopInfo.TechCrunchTask();
@@ -144,6 +142,9 @@ public class MainActivity extends ActionBarActivity {
                 MTAParseStopInfo.TechCrunchTask downloadTaskFour = new MTAParseStopInfo.TechCrunchTask();
                 downloadTaskFour.stopRadius = 120;
                 downloadTaskFour.execute();
+
+
+
 
 
                 //this is now in stop info as it does not update on second press here
@@ -168,12 +169,6 @@ public class MainActivity extends ActionBarActivity {
 
 
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
 
 
 
@@ -189,6 +184,7 @@ public class MainActivity extends ActionBarActivity {
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
+
             View rootView = inflater.inflate(R.layout.fragment_main, container, false);
 
             mContext = container.getContext();
@@ -203,67 +199,65 @@ public class MainActivity extends ActionBarActivity {
 
 
 
-            button.setOnClickListener(new View.OnClickListener() {
-                public void onClick(View v) {
 
-                   // (Context.LOCATION_SERVICE);
+           // (Context.LOCATION_SERVICE);
 
-                    LocationManager service = (LocationManager) getActivity().getSystemService(LOCATION_SERVICE);
-                    boolean enabled = service
-                            .isProviderEnabled(LocationManager.GPS_PROVIDER);
+            LocationManager service = (LocationManager) getActivity().getSystemService(LOCATION_SERVICE);
+            boolean enabled = service
+                    .isProviderEnabled(LocationManager.GPS_PROVIDER);
 
-                    // check if enabled and if not send user to the GSP settings
-                    // Better solution would be to display a dialog and suggesting to
+            // check if enabled and if not send user to the GSP settings
+            // Better solution would be to display a dialog and suggesting to
 
 
 
-                 /*   // go to the settings
-                    if (!enabled) {
-                        Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
-                        startActivity(intent);
-                    }*/
+         /*   // go to the settings
+            if (!enabled) {
+                Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+                startActivity(intent);
+            }*/
 
 
 
-                    // Get the location manager
-                    locationManager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
-                    // Define the criteria how to select the locatioin provider -> use
-                    // default
-                    Criteria criteria = new Criteria();
-                    criteria.setAccuracy(Criteria.ACCURACY_FINE);
-                    provider = locationManager.getBestProvider(criteria, true);
+            // Get the location manager
+            locationManager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
+            // Define the criteria how to select the locatioin provider -> use
+            // default
+            Criteria criteria = new Criteria();
+            criteria.setAccuracy(Criteria.ACCURACY_FINE);
+            provider = locationManager.getBestProvider(criteria, true);
 
 
 
-                    LocationListener locationListener = new MyLocationListener();
-                    Location location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-                    locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, locationListener);
+            LocationListener locationListener = new MyLocationListener();
+            Location location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, locationListener);
 
 
-                    // Initialize the location fields
-                    if (location != null) {
+            // Initialize the location fields
+            if (location != null) {
 
-                        onLocationChanged(location);
-                    } else {
-                        editText.setText("Location not available for test");
+                onLocationChanged(location);
+            } else {
+                editText.setText("Location not available for test");
 
-                    }
+            }
 
-                    //get adress location
-                    if(!editText.getText().toString().equals("Location not available")){
+            //get adress location
+            if(!editText.getText().toString().equals("Location not available")){
 
-                        //String fakeLat = "40.64563681";
-                        //String testLng = "-73.982776";
+                //String fakeLat = "40.64563681";
+                //String testLng = "-73.982776";
 
-                        GpsToAddress task = new GpsToAddress();
-                        task.execute();
+                GpsToAddress task = new GpsToAddress();
+                task.execute();
 
 
 
-                    }
+            }
 
-                }
-            });
+
+
 
 
 
