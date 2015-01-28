@@ -196,71 +196,70 @@ public class MainActivity extends ActionBarActivity {
             editTextThree = (EditText) rootView.findViewById(R.id.editTextThree);
 
 
+            button.setOnClickListener(new View.OnClickListener() {
+                public void onClick(View v) {
+                    // TODO Auto-generated method stub
 
-
-
-
-           // (Context.LOCATION_SERVICE);
-
-            LocationManager service = (LocationManager) getActivity().getSystemService(LOCATION_SERVICE);
-            boolean enabled = service
-                    .isProviderEnabled(LocationManager.GPS_PROVIDER);
-
-            // check if enabled and if not send user to the GSP settings
-            // Better solution would be to display a dialog and suggesting to
-
-
-
-         /*   // go to the settings
-            if (!enabled) {
-                Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
-                startActivity(intent);
-            }*/
-
-
-
-            // Get the location manager
-            locationManager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
-            // Define the criteria how to select the locatioin provider -> use
-            // default
-            Criteria criteria = new Criteria();
-            criteria.setAccuracy(Criteria.ACCURACY_FINE);
-            provider = locationManager.getBestProvider(criteria, true);
-
-
-
-            LocationListener locationListener = new MyLocationListener();
-            Location location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, locationListener);
-
-
-            // Initialize the location fields
-            if (location != null) {
-
-                onLocationChanged(location);
-            } else {
-                editText.setText("Location not available for test");
-
-            }
-
-            //get adress location
-            if(!editText.getText().toString().equals("Location not available")){
-
-                //String fakeLat = "40.64563681";
-                //String testLng = "-73.982776";
-
-                GpsToAddress task = new GpsToAddress();
-                task.execute();
-
-
-
-            }
+                    // check if enabled and if not send user to the GSP settings
+                 /*   // go to the settings
+                  /*  if (!enabled) {
+                        Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+                        startActivity(intent);
+                    }*/
 
 
 
 
 
+                    LocationManager service = (LocationManager) getActivity().getSystemService(LOCATION_SERVICE);
+                    boolean enabled = service.isProviderEnabled(LocationManager.GPS_PROVIDER);
 
+                    if (!enabled) {
+                        Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+                        startActivity(intent);
+                    }
+
+
+                    locationManager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
+                    Criteria criteria = new Criteria();
+                    criteria.setAccuracy(Criteria.ACCURACY_FINE);
+                    provider = locationManager.getBestProvider(criteria, true);
+
+                    LocationListener locationListener = new MyLocationListener();
+                    Location location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+                    locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, locationListener);
+
+
+
+                    int accuracy = (int) location.getAccuracy();
+
+                    while(accuracy > 10 ){
+
+                        //do nothing!
+                    }
+
+
+                    // Initialize the location fields
+                    if (location != null) {
+
+                        onLocationChanged(location);
+                    } else {
+                        editText.setText("Location not available for test");
+
+                    }
+
+                    //get adress location
+                    if(!editText.getText().toString().equals("Location not available")){
+
+                        GpsToAddress task = new GpsToAddress();
+                        task.execute();
+
+
+                    }
+
+
+                }
+            });
 
 
 
