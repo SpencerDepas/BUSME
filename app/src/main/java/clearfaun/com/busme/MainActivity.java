@@ -189,12 +189,25 @@ public class MainActivity extends ActionBarActivity {
 
             mContext = container.getContext();
 
+            LocationManager service = (LocationManager) getActivity().getSystemService(LOCATION_SERVICE);
+            final boolean enabled = service.isProviderEnabled(LocationManager.GPS_PROVIDER);
 
             Button button = (Button) rootView.findViewById(R.id.button);
             editText = (EditText) rootView.findViewById(R.id.editText);
             editTextTwo = (EditText) rootView.findViewById(R.id.editTextTwo);
             editTextThree = (EditText) rootView.findViewById(R.id.editTextThree);
 
+
+
+
+            locationManager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
+            Criteria criteria = new Criteria();
+            criteria.setAccuracy(Criteria.ACCURACY_FINE);
+            provider = locationManager.getBestProvider(criteria, true);
+
+            LocationListener locationListener = new MyLocationListener();
+            final Location location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, locationListener);
 
             button.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
@@ -211,8 +224,7 @@ public class MainActivity extends ActionBarActivity {
 
 
 
-                    LocationManager service = (LocationManager) getActivity().getSystemService(LOCATION_SERVICE);
-                    boolean enabled = service.isProviderEnabled(LocationManager.GPS_PROVIDER);
+
 
                     if (!enabled) {
                         Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
@@ -220,14 +232,7 @@ public class MainActivity extends ActionBarActivity {
                     }
 
 
-                    locationManager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
-                    Criteria criteria = new Criteria();
-                    criteria.setAccuracy(Criteria.ACCURACY_FINE);
-                    provider = locationManager.getBestProvider(criteria, true);
 
-                    LocationListener locationListener = new MyLocationListener();
-                    Location location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-                    locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, locationListener);
 
 
 
