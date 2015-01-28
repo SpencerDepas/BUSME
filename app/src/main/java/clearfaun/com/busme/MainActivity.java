@@ -206,24 +206,15 @@ public class MainActivity extends ActionBarActivity {
             provider = locationManager.getBestProvider(criteria, true);
 
             LocationListener locationListener = new MyLocationListener();
-            final Location location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
             locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, locationListener);
 
             button.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
                     // TODO Auto-generated method stub
 
-                    // check if enabled and if not send user to the GSP settings
-                 /*   // go to the settings
-                  /*  if (!enabled) {
-                        Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
-                        startActivity(intent);
-                    }*/
-
-
-
-
-
+                    LocationListener locationListener = new MyLocationListener();
+                    Location location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+                    locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, locationListener);
 
 
                     if (!enabled) {
@@ -241,6 +232,7 @@ public class MainActivity extends ActionBarActivity {
                     while(accuracy > 10 ){
 
                         //do nothing!
+                        //need to add a case where its not acurate.
                     }
 
 
